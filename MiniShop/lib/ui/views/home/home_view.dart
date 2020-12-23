@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
 import 'package:MiniShop/ui/views/product/product_view.dart';
+import 'package:MiniShop/models/product.dart';
+import 'package:MiniShop/services/database_service.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -66,7 +68,7 @@ class _HomeViewState extends State<HomeView> {
                   flex: 7,
                   child: Container(
                     color: Colors.green,
-                    child: Image.network(item.url),
+                    child: Image.network(item.imgUrl),
                   ),
                 ),
                 Expanded(
@@ -116,17 +118,18 @@ class _HomeViewState extends State<HomeView> {
             )
           ],
           onTap: (int id) {
-            if (id == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProductView()),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomeView()),
-              );
-            }
+            model.more();
+            // if (id == 1) {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => ProductView()),
+            //   );
+            // } else {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => HomeView()),
+            //   );
+            // }
           },
         ),
       ),
