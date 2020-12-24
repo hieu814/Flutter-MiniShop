@@ -5,7 +5,7 @@ import 'package:stacked/stacked.dart';
 import 'package:MiniShop/models/product.dart';
 import 'package:MiniShop/services/database_service.dart';
 
-class HomeViewModel extends BaseViewModel {
+class ProducManagerViewModel extends BaseViewModel {
   List<Product> _listProduct = <Product>[];
 
   List<Product> get items => _listProduct;
@@ -46,16 +46,6 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Future load() async {
-    //db = new DatabaseService();
-    //DatabaseService db = new DatabaseService();
     await fetchAndSetWorkouts();
-    //notifyListeners();
-    //_listProduct = db.products() as List<Product>;
   }
-  // db.insertProduct(Product(
-  //   id: 1,
-  //   name: "Ssd",
-  //   imgUrl: "asdasdasd",
-  //   price: "2323",
-  //   description: "asdasdasdad"));
 }

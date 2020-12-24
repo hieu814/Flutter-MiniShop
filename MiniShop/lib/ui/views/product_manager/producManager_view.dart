@@ -1,81 +1,52 @@
-import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'home_viewmodel.dart';
-import 'package:MiniShop/ui/views/product_manager/producManager_view.dart';
+import 'dart:html';
 
-class HomeView extends StatefulWidget {
+import 'package:stacked/stacked.dart';
+import 'package:flutter/material.dart';
+import 'productManager_viewmodel.dart';
+
+class ProductManager extends StatefulWidget {
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _ProductManagerState createState() => _ProductManagerState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _ProductManagerState extends State<ProductManager> {
   int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
-      onModelReady: (HomeViewModel model) => model.load(),
-      builder: (context, HomeViewModel model, child) => Scaffold(
+      onModelReady: (ProducManagerViewModel model) => model.load(),
+      builder: (context, ProducManagerViewModel model, child) => Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.red,
-          title: TextFormField(),
+          title: Text("Product manager"),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {},
             ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProductManager()),
-                );
-              },
-            ),
           ],
-        ),
-        drawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                child: Text("loggin vs lis"),
-                decoration: BoxDecoration(color: Colors.red),
-              ),
-              ListTile(
-                title: Text("chuc nang 1"),
-              ),
-              ListTile(
-                title: Text("chuc nang 2"),
-              ),
-              ListTile(
-                title: Text("chuc nang 3"),
-              ),
-            ],
-          ),
         ),
         body: GridView.builder(
           itemCount: model.items.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
+            crossAxisCount: 1,
             childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.4),
+                (MediaQuery.of(context).size.height / 10),
           ),
           itemBuilder: (context, int index) {
             var item = model.items[index];
             return Card(
-                child: Column(
+                child: Row(
               children: <Widget>[
                 Expanded(
-                  flex: 7,
+                  flex: 3,
                   child: Container(
                     color: Colors.green,
                     child: Image.network(item.imgUrl),
                   ),
                 ),
                 Expanded(
-                  flex: 3,
+                  flex: 4,
                   child: Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                     width: double.infinity,
@@ -99,6 +70,20 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                 ),
+                Expanded(
+                    flex: 3,
+                    child: Row(
+                      children: <Widget>[
+                        IconButton(
+                          icon: const Icon(Icons.update),
+                          onPressed: () {},
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () {},
+                        ),
+                      ],
+                    )),
               ],
             ));
           },
@@ -136,7 +121,7 @@ class _HomeViewState extends State<HomeView> {
           },
         ),
       ),
-      viewModelBuilder: () => HomeViewModel(),
+      viewModelBuilder: () => ProducManagerViewModel(),
     );
   }
 }

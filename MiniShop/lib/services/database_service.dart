@@ -4,12 +4,20 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-  static Database _database;
+  static final DatabaseService _instance = new DatabaseService.internal();
+  factory DatabaseService() => _instance;
+
+  static Database _db;
+
   Future<Database> get database async {
-    if (_database != null) return _database;
-    _database = createDatabase();
-    return _database;
+    if (_db != null) {
+      return _db;
+    }
+    _db = await createDatabase();
+    return _db;
   }
+
+  DatabaseService.internal();
 
   createDatabase() async {
     return await openDatabase(join(await getDatabasesPath(), 'mini_shop.db'),
@@ -22,8 +30,9 @@ class DatabaseService {
 
   Future<void> insertProduct(Product product) async {
     // Get a reference to the database.
+    print("Get a reference to the database");
     final Database db = await database;
-    print("insert 1");
+
     await db.insert(
       'products',
       product.toMap(),
