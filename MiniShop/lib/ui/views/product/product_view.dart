@@ -1,7 +1,11 @@
+import 'package:MiniShop/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:MiniShop/ui/views/home/home_view.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class ProductView extends StatefulWidget {
+  Product product;
+  ProductView({Key key, @required this.product}) : super(key: key);
   @override
   _ProductViewState createState() => _ProductViewState();
 }
@@ -33,33 +37,66 @@ class _ProductViewState extends State<ProductView> {
             width: double.infinity,
             child: Column(
               children: <Widget>[
-                Expanded(
-                  flex: 6,
-                  child: Container(
-                    color: Colors.green,
-                  ),
-                ),
+                Expanded(flex: 4, child: Image.network(widget.product.imgUrl)),
                 Expanded(
                   flex: 4,
-                  child: Card(
-                    //margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    //width: double.infinity,
+                  child: Container(
+                    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    width: double.infinity,
                     //color: Colors.yellow,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const SizedBox(height: 8),
+                        //const SizedBox(height: 8),
                         Text(
-                          'No, we need bold strokes. We need this plan.',
+                          widget.product.name,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                              fontSize: 15),
+                              color: Colors.blue,
+                              fontSize: 20),
                           overflow: TextOverflow.clip,
                           maxLines: 2,
                         ),
                         const SizedBox(height: 8),
-                        Text("ten san pham")
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 7,
+                              child: Text(
+                                widget.product.price,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
+                                    fontSize: 30),
+                                overflow: TextOverflow.clip,
+                                maxLines: 1,
+                              ),
+                            ),
+                            //const SizedBox(width: 100),
+                            Expanded(
+                              flex: 4,
+                              child: Container(
+                                margin: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.all(3.0),
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.blueAccent)),
+                                child: SmoothStarRating(
+                                    // allowHalfRating: false,
+                                    onRated: (v) {},
+                                    starCount: 5,
+                                    rating: 4,
+                                    size: 15.0,
+                                    isReadOnly: true,
+                                    // fullRatedIconData: Icons.blur_off,
+                                    // halfRatedIconData: Icons.blur_on,
+                                    color: Colors.orange,
+                                    borderColor: Colors.orange,
+                                    spacing: 0.0),
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),

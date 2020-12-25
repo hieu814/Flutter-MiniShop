@@ -1,3 +1,4 @@
+import 'package:MiniShop/ui/views/product/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'home_viewmodel.dart';
@@ -10,7 +11,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
@@ -65,42 +65,54 @@ class _HomeViewState extends State<HomeView> {
           itemBuilder: (context, int index) {
             var item = model.items[index];
             return Card(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductView(
+                              product: model.items[index],
+                            )),
+                  );
+                },
                 child: Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 7,
-                  child: Container(
-                    color: Colors.green,
-                    child: Image.network(item.imgUrl),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    width: double.infinity,
-                    //color: Colors.yellow,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SizedBox(height: 8),
-                        Text(
-                          item.name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red,
-                              fontSize: 15),
-                          overflow: TextOverflow.clip,
-                          maxLines: 2,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(item.price)
-                      ],
+                  children: <Widget>[
+                    Expanded(
+                      flex: 7,
+                      child: Container(
+                        color: Colors.green,
+                        child: Image.network(item.imgUrl),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                        width: double.infinity,
+                        //color: Colors.yellow,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            const SizedBox(height: 8),
+                            Text(
+                              item.name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                  fontSize: 15),
+                              overflow: TextOverflow.clip,
+                              maxLines: 2,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(item.price)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ));
+              ),
+            );
           },
         ),
         bottomNavigationBar: BottomNavigationBar(
