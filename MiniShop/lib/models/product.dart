@@ -5,7 +5,7 @@ class Product {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      //'id': id,
       'name': name,
       'imgUrl': imgUrl,
       'price': price,

@@ -20,10 +20,10 @@ class DatabaseService {
   DatabaseService.internal();
 
   createDatabase() async {
-    return await openDatabase(join(await getDatabasesPath(), 'mini_shop.db'),
+    return await openDatabase(join(await getDatabasesPath(), 'minishop.db'),
         onCreate: (db, version) async {
       return db.execute(
-        "CREATE TABLE products(id INTEGER PRIMARY KEY, name TEXT,imgUrl TEXT, price TEXT,description TEXT)",
+        "CREATE TABLE products(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT,imgUrl TEXT, price TEXT,description TEXT)",
       );
     }, version: 1);
   }
@@ -32,7 +32,6 @@ class DatabaseService {
     // Get a reference to the database.
     print("Get a reference to the database");
     final Database db = await database;
-
     await db.insert(
       'products',
       product.toMap(),
@@ -72,4 +71,6 @@ class DatabaseService {
       );
     });
   }
+
+  Future close() async => _db.close();
 }

@@ -39,18 +39,24 @@ class _HomeViewState extends State<HomeView> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              DrawerHeader(
-                child: Text("loggin vs lis"),
-                decoration: BoxDecoration(color: Colors.red),
+              UserAccountsDrawerHeader(
+                accountName: Text("Hieu"),
+                accountEmail: Text("Hieuvu81198@gmail.com"),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.green,
+                ),
               ),
               ListTile(
-                title: Text("chuc nang 1"),
+                title: ButtonBar(),
               ),
               ListTile(
-                title: Text("chuc nang 2"),
-              ),
-              ListTile(
-                title: Text("chuc nang 3"),
+                title: Text("Product"),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProductManager()),
+                  );
+                },
               ),
             ],
           ),
@@ -78,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      flex: 7,
+                      flex: 5,
                       child: Container(
                         color: Colors.green,
                         child: Image.network(item.imgUrl),
@@ -133,18 +139,10 @@ class _HomeViewState extends State<HomeView> {
             )
           ],
           onTap: (int id) {
-            model.more();
-            // if (id == 1) {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => ProductView()),
-            //   );
-            // } else {
-            //   Navigator.push(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => HomeView()),
-            //   );
-            // }
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomeView()),
+            );
           },
         ),
       ),

@@ -1,4 +1,4 @@
-import 'dart:developer';
+//import 'dart:developer';
 
 import 'package:stacked/stacked.dart';
 //import 'home_model.dart';
@@ -12,18 +12,24 @@ class ProducManagerViewModel extends BaseViewModel {
   int cou = 0;
   // final database= DatabaseService.instance;
 
-  Future<void> more() async {
+  Future<void> add(Product p) async {
     var db = new DatabaseService.internal();
-    await db.insertProduct(Product(
-        id: 2,
-        name: "Ssd",
-        imgUrl:
-            "https://giaitri.vn/wp-content/uploads/2019/07/avatar-la-gi-01.jpg",
-        price: "2323",
-        description: "asdasdasdad"));
-    cou++;
-    print("tessss");
-    notifyListeners();
+    await db.insertProduct(p);
+    // notifyListeners();
+    await fetchAndSetWorkouts();
+  }
+
+  Future<void> delete(int id) async {
+    var db = new DatabaseService.internal();
+    await db.deleteProduct(id);
+    //notifyListeners();
+    await fetchAndSetWorkouts();
+  }
+
+  Future<void> update(Product p) async {
+    var db = new DatabaseService.internal();
+    await db.updateProduct(p);
+    //notifyListeners();
     await fetchAndSetWorkouts();
   }
 

@@ -39,7 +39,7 @@ class _ProductViewState extends State<ProductView> {
               children: <Widget>[
                 Expanded(flex: 4, child: Image.network(widget.product.imgUrl)),
                 Expanded(
-                  flex: 4,
+                  flex: 2,
                   child: Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 20.0),
                     width: double.infinity,
@@ -61,7 +61,7 @@ class _ProductViewState extends State<ProductView> {
                         Row(
                           children: <Widget>[
                             Expanded(
-                              flex: 7,
+                              flex: 3,
                               child: Text(
                                 widget.product.price,
                                 style: TextStyle(
@@ -104,10 +104,36 @@ class _ProductViewState extends State<ProductView> {
               ],
             ),
           ),
-          Container(
-            height: 500,
-            width: double.infinity,
-            color: Colors.green,
+          Card(
+            elevation: 5,
+            margin: EdgeInsets.all(10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(2.0),
+            ),
+            child: Container(
+              height: 500,
+              width: double.infinity,
+              //color: Colors.green,
+
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Description: ",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: 20),
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(widget.product.description),
+                ],
+              ),
+            ),
           )
         ],
       )),
@@ -117,28 +143,18 @@ class _ProductViewState extends State<ProductView> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(null),
-            title: Text("Add to card"),
+            title: Text("Buy"),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.format_list_numbered),
+            icon: Icon(Icons.add_shopping_cart),
             title: Text("Add to card"),
           ),
         ],
         onTap: (int id) {
-          if (_selectedIndex != id) {
-            _selectedIndex = id;
-            if (id == 1) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProductView()),
-              );
-            } else {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomeView()),
-              );
-            }
-          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeView()),
+          );
         },
       ),
     );
